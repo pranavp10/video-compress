@@ -3,7 +3,7 @@ import Link from "next/link";
 export const Navbar = () => {
   return (
     <nav className="fixed top-0 left-6 lg:left-8 right-6 lg:right-8 py-6 lg:pt-8 pb-0 z-30">
-      <div className="w-full p-3 lg:p-4 max-w-5xl border border-gray-200 bg-gray-50/90 backdrop-blur-lg grid grid-cols-3 items-center mx-auto rounded-2xl">
+      <div className="w-full p-3 lg:p-4 max-w-5xl border border-gray-200 bg-gray-50/90 backdrop-blur-lg sm:grid flex justify-between sm:grid-cols-3 items-center mx-auto rounded-2xl">
         <Link href="/" className="flex items-center gap-2">
           <svg
             className="w-10 h-10 rounded-xl"
@@ -44,17 +44,17 @@ export const Navbar = () => {
               </linearGradient>
             </defs>
           </svg>
-          <p className="font-semibold text-xl">Compress</p>
+          <p className="font-semibold sm:text-xl">Compress</p>
         </Link>
-        <div className="flex gap-4 items-center justify-center">
-          <p className="text-sm opacity-50">Features</p>
-          <p className="text-sm  opacity-50">Pricing</p>
-          <p className="text-sm  opacity-50">Faq</p>
+        <div className="sm:flex gap-4 items-center justify-center hidden">
+          <a className="text-sm opacity-50">Features</a>
+          <a className="text-sm  opacity-50">Pricing</a>
+          <a className="text-sm  opacity-50">Faq</a>
         </div>
         <div className="flex justify-end items-center">
           <Link
-            href="/compress"
-            className="bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-zinc-700 via-zinc-950 to-zinc-950 rounded-lg text-white/90 px-3.5 py-2.5 relative text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-500 focus:ring-zinc-950"
+            href="/video"
+            className="bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-zinc-700 via-zinc-950 to-zinc-950 rounded-lg text-white/90 px-3.5 py-2.5 relative text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-500 focus:ring-zinc-950 flex-shrink-0"
           >
             Compress Now
           </Link>

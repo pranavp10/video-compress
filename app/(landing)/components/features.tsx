@@ -9,7 +9,7 @@ import {
 import React from "react";
 
 const Features = () => (
-  <div className="grid grid-cols-3 gap-x-4 gap-y-20 mx-auto">
+  <div className="grid md:grid-cols-2  lg:grid-cols-3 gap-x-4 gap-y-20 mx-auto px-6 lg:px-0">
     {features.map(({ description, title, icon }) => (
       <div
         key={description}
@@ -18,7 +18,7 @@ const Features = () => (
         {icon}
         <div>
           <p className="font-medium pb-4">{title}</p>
-          <p className="text-gray-500">{description}</p>
+          <p className="text-gray-500 text-balance max-w-sm">{description}</p>
         </div>
       </div>
     ))}

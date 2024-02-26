@@ -2,11 +2,11 @@ import Link from "next/link";
 import React from "react";
 
 const Footer = () => (
-  <footer className="py-20 px-6 sm:py-24 lg:px-8 bg-white">
-    <div className="flex flex-col items-center mx-auto justify-center pb-10">
+  <footer className="pb-6 pt-10 md:pb-10 md:pt-20 bg-white">
+    <div className="flex flex-col items-center mx-auto justify-center">
       <Link href="/" className="flex items-center gap-2">
         <svg
-          className="w-10 h-10 rounded-xl"
+          className="w-6 h-6"
           viewBox="0 0 80 80"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -44,30 +44,16 @@ const Footer = () => (
             </linearGradient>
           </defs>
         </svg>
-        <p className="font-semibold text-xl">Compress</p>
+        <p className="font-semibold">Compress</p>
       </Link>
-      <p className="text-gray-500 pt-3 text-sm">Free Video Compression</p>
-    </div>
-    <div className=" overflow-hidden ">
-      <nav
-        className="-mb-6 text-center sm:flex sm:justify-center sm:space-x-6"
-        aria-label="Footer"
-      >
-        {navigation.main.map((item) => (
-          <div key={item.name} className="pb-6">
-            <a href={item.href} className="">
-              {item.name}
-            </a>
-          </div>
-        ))}
-      </nav>
-
-      <p className="mt-4 text-center text-sm leading-5 text-gray-500">
-        Mad with ❤️ by{" "}
-        <a href="https://prolab.sh/" target="_blank" className="underline">
-          prolab.sh
-        </a>
+      <p className="text-gray-500 pt-4 text-sm">
+        No © 2024 Compress Videos for Free. Forever
       </p>
+    </div>
+
+    <div className="justify-center font-medium text-gray-600 text-sm divide-x-2 flex pt-10">
+      <p className="pr-3">About</p>
+      <p className="pl-3">Video Compression</p>
     </div>
   </footer>
 );
