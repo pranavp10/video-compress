@@ -15,7 +15,7 @@ const CTA = () => (
       </p>
       <div className="flex justify-center mt-9">
         <Link
-          href="/compress"
+          href="/video"
           className="bg-white text-black py-2.5 font-medium text-sm px-6 rounded-lg w-full md:w-auto text-center"
         >
           Compress Now
