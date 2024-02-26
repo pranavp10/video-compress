@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import React from "react";
 
 const Pricing = () => (
-  <div className="px-6 lg:px-0">
+  <div className="px-6 lg:px-0" id="pricing">
     <div className="flex flex-col md:flex-row border justify-between rounded-xl p-3 items-center">
       <div className="p-6">
         <p className="mb-3 text-xl md:text-3xl font-semibold">

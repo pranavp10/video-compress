@@ -7,7 +7,7 @@ import {
 } from "~/components/ui/accordion";
 
 const Faq = () => (
-  <div className="px-6 lg:px-0">
+  <div className="px-6 lg:px-0" id="faq">
     <p className="text-center font-semibold text-xl md:text-3xl">
       Frequently asked questions
     </p>

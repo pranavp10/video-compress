@@ -9,7 +9,10 @@ import {
 import React from "react";
 
 const Features = () => (
-  <div className="grid md:grid-cols-2  lg:grid-cols-3 gap-x-4 gap-y-20 mx-auto px-6 lg:px-0">
+  <div
+    className="grid md:grid-cols-2  lg:grid-cols-3 gap-x-4 gap-y-20 mx-auto px-6 lg:px-0"
+    id="features"
+  >
     {features.map(({ description, title, icon }) => (
       <div
         key={description}
