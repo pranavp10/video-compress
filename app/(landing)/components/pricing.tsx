@@ -22,11 +22,11 @@ const Pricing = () => (
           ))}
         </div>
       </div>
-      <div className="bg-gray-100  shadow-sm border text-center border-gray-200 rounded-2x p-10 rounded-2xl md:w-1/3 w-full">
+      <div className="bg-white/40  shadow-sm border text-center border-gray-200 rounded-2x p-10 rounded-2xl md:w-1/3 w-full">
         <p className="font-semibold text-lg">Free,Forever</p>
         <div className="flex items-end justify-center pt-4 pb-8">
           <span className="text-4xl font-semibold">$0</span>
-          <div className="text-gray-500">/month</div>
+          <div>/month</div>
         </div>
         <a
           href="/video"
@@ -34,7 +34,7 @@ const Pricing = () => (
         >
           Compress Now
         </a>
-        <p className="text-gray-500 pt-4 text-xs">
+        <p className="pt-4 text-xs">
           All of our code base is free and
           <br />
           open source.
