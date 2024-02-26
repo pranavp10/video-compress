@@ -7,8 +7,6 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import { toast } from "sonner";
 import { FileActions, VideoInputSettings } from "~/global";
-import { XCircle } from "lucide-react";
-import { Progress } from "~/components/ui/progress";
 import convertFile from "~/utils/convert";
 import { VideoDisplay } from "./core/videoDisplay";
 import { CustomDropZone } from "./core/customDropZone";
@@ -100,7 +98,7 @@ const CompressVideo = () => {
 
   return (
     <>
-      <div className="flex border rounded-3xl col-span-5 h-full w-full bg-gray-50/35">
+      <div className="flex border rounded-3xl col-span-5 h-80 md:h-full w-full bg-gray-50/35">
         {videoFile ? (
           <VideoDisplay videoUrl={URL.createObjectURL(videoFile.file)} />
         ) : (

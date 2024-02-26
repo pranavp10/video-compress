@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <div className="max-w-5xl mx-auto pt-32">
-      <div className="grid grid-cols-8 gap-10 h-[calc(100dvh-130px)] pb-10">
+      <div className="md:grid md:grid-cols-8 gap-10 md:h-[calc(100dvh-130px)] pb-10 px-6 md:px-0 flex flex-col">
         <CompressVideo />
       </div>
     </div>
