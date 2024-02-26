@@ -8,4 +8,11 @@ export type FileActions = {
     isError?: boolean;
     url?: string;
     output?: any;
+    outputBlob?: Blob
 };
+
+
+export type VideoInputSettings = {
+    quality: string;
+    videoType: string;
+}
