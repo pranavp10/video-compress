@@ -17,95 +17,95 @@ import convertFile from "~/utils/convert";
 type Status = "notStarted" | "converted" | "converting";
 
 const Page = () => {
-  const [videoFile, setVideoFile] = useState<FileActions>();
-  const [progress, setProgress] = useState<number>(0);
-  const [status, setStatus] = useState<Status>("notStarted");
-  const [videoSettings, setVideoSettings] = useState({
-    quality: "high",
-    videoType: "mp4",
-  });
-  const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
-  const ffmpegRef = useRef(new FFmpeg());
+  // const [videoFile, setVideoFile] = useState<FileActions>();
+  // const [progress, setProgress] = useState<number>(0);
+  // const [status, setStatus] = useState<Status>("notStarted");
+  // const [videoSettings, setVideoSettings] = useState({
+  //   quality: "high",
+  //   videoType: "mp4",
+  // });
+  // const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
+  // const ffmpegRef = useRef(new FFmpeg());
 
-  const handleUpload = (file: File) => {
-    setVideoFile({
-      fileName: file.name,
-      fileSize: file.size,
-      from: file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2),
-      to: videoSettings.videoType,
-      fileType: file.type,
-      file,
-      isError: false,
-    });
-  };
+  // const handleUpload = (file: File) => {
+  //   setVideoFile({
+  //     fileName: file.name,
+  //     fileSize: file.size,
+  //     from: file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2),
+  //     to: videoSettings.videoType,
+  //     fileType: file.type,
+  //     file,
+  //     isError: false,
+  //   });
+  // };
 
-  const compress = async () => {
-    if (!videoFile) return;
-    try {
-      setStatus("converting");
-      ffmpegRef.current.on("progress", ({ progress: completion, time }) => {
-        const percentage = completion * 100;
-        const transcodeTime = time / 100000;
-        if (timeConsumedRef?.current && Math.floor(transcodeTime))
-          timeConsumedRef.current.textContent = `${Math.floor(
-            transcodeTime
-          )} sec`;
-        setProgress(percentage);
-      });
-      const { url, output } = await convertFile(ffmpegRef.current, videoFile);
-      setVideoFile({
-        ...videoFile,
-        url,
-        output,
-      });
-      setStatus("converted");
-    } catch (err) {
-      toast.error("Error Compressing Video");
-    }
-  };
+  // const compress = async () => {
+  //   if (!videoFile) return;
+  //   try {
+  //     setStatus("converting");
+  //     ffmpegRef.current.on("progress", ({ progress: completion, time }) => {
+  //       const percentage = completion * 100;
+  //       const transcodeTime = time / 100000;
+  //       if (timeConsumedRef?.current && Math.floor(transcodeTime))
+  //         timeConsumedRef.current.textContent = `${Math.floor(
+  //           transcodeTime
+  //         )} sec`;
+  //       setProgress(percentage);
+  //     });
+  //     const { url, output } = await convertFile(ffmpegRef.current, videoFile);
+  //     setVideoFile({
+  //       ...videoFile,
+  //       url,
+  //       output,
+  //     });
+  //     setStatus("converted");
+  //   } catch (err) {
+  //     toast.error("Error Compressing Video");
+  //   }
+  // };
 
-  const load = async () => {
-    const ffmpeg = ffmpegRef.current;
-    await ffmpeg.load({
-      coreURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.js`,
-        "text/javascript"
-      ),
-      wasmURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.wasm`,
-        "application/wasm"
-      ),
-    });
-  };
+  // const load = async () => {
+  //   const ffmpeg = ffmpegRef.current;
+  //   await ffmpeg.load({
+  //     coreURL: await toBlobURL(
+  //       `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.js`,
+  //       "text/javascript"
+  //     ),
+  //     wasmURL: await toBlobURL(
+  //       `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.wasm`,
+  //       "application/wasm"
+  //     ),
+  //   });
+  // };
 
-  const loadWithToast = () => {
-    toast.promise(load, {
-      loading: "Downloading necessary packages from FFmpeg for offline use.",
-      success: () => {
-        return "All necessary file downloaded";
-      },
-      error: "Error loading FFmpeg packages",
-    });
-  };
+  // const loadWithToast = () => {
+  //   toast.promise(load, {
+  //     loading: "Downloading necessary packages from FFmpeg for offline use.",
+  //     success: () => {
+  //       return "All necessary file downloaded";
+  //     },
+  //     error: "Error loading FFmpeg packages",
+  //   });
+  // };
 
-  const download = () => {
-    if (!videoFile?.url) return;
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = videoFile.url;
-    console.log(videoFile.output);
-    a.download = videoFile.output;
-    document.body.appendChild(a);
-    a.click();
-    URL.revokeObjectURL(videoFile.url);
-    document.body.removeChild(a);
-  };
+  // const download = () => {
+  //   if (!videoFile?.url) return;
+  //   const a = document.createElement("a");
+  //   a.style.display = "none";
+  //   a.href = videoFile.url;
+  //   console.log(videoFile.output);
+  //   a.download = videoFile.output;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   URL.revokeObjectURL(videoFile.url);
+  //   document.body.removeChild(a);
+  // };
 
-  useEffect(() => loadWithToast(), []);
+  // useEffect(() => loadWithToast(), []);
 
   return (
     <div className="max-w-5xl mx-auto pt-32">
-      <div className="grid grid-cols-8 gap-10 h-[calc(100dvh-180px)]">
+      {/* <div className="grid grid-cols-8 gap-10 h-[calc(100dvh-180px)]">
         <div className="flex border rounded-3xl col-span-5 h-full w-full bg-gray-50/35">
           {videoFile ? (
             <video className="h-full w-full rounded-lg" controls>
@@ -253,7 +253,7 @@ const Page = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
