@@ -83,7 +83,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#616161" />
         <script
           defer
-          data-domain="compress.prolab.sh"
+          data-domain="videocompress.prolab.sh"
           src="https://plausible.pranavp.xyz/js/script.js"
         ></script>
       </head>
