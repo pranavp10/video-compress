@@ -1,0 +1,67 @@
+{
+  "name": "video-compression",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Compress Videos for Free. Forever. Say goodbye to bulky files! Crush video sizes by 90% with no quality loss, even offline. And the best part? It's free!",
+  "author": {
+    "name": "Pranav",
+    "email": "hi@pranavp.xyz",
+    "website": "https://pranavp.xyz",
+    "twitter": "https://twitter.com/thatspranav",
+    "linkedin": "https://www.linkedin.com/in/pranavp10/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pranavp10/videocompress"
+  },
+  "keywords": [
+    "Free Video Compressor",
+    "Online Video Converter",
+    "Video Compression Tool",
+    "Image Compression Tool",
+    "Compress Video Online",
+    "Convert Video Online",
+    "High-Quality Video Compression",
+    "Shrink Video File Size"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.10",
+    "@ffmpeg/util": "^0.12.1",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-progress": "^1.0.3",
+    "@radix-ui/react-switch": "^1.0.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "cmdk": "^0.2.1",
+    "lucide-react": "^0.336.0",
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-dropzone": "^14.2.3",
+    "sonner": "^1.4.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@ffmpeg/types": "^0.12.2",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}
