@@ -18,35 +18,80 @@ const Faq = () => (
     </p>
     <div className="mt-8 md:mt-16 border-t">
       <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="md:py-6 text-lg text-black/70">
-            Is it accessible?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-500 pb-6 text-black/70">
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger className="md:py-6 text-lg text-black/70">
-            Is it styled?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-500 pb-6">
-            Yes. It comes with default styles that matches the other
-            components&apos; aesthetic.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-3" className="hover:no-underline!">
-          <AccordionTrigger className="md:py-6 text-lg text-black/70">
-            Is it animated?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-500 pb-6">
-            Yes. It&apos;s animated by default, but you can disable it if you
-            prefer.
-          </AccordionContent>
-        </AccordionItem>
+        {FAQ.map(({ description, title }) => (
+          <AccordionItem value={title} key={title}>
+            <AccordionTrigger className="md:py-6 text-lg text-black/70">
+              {title}
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-500 pb-6 text-black/70">
+              {description}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
     </div>
   </div>
 );
 
 export default Faq;
+
+const FAQ = [
+  {
+    title: "How Long Does It Take to Compress a Video?",
+    description: (
+      <div>
+        <p className="text-gray-700">
+          The time it takes to compress a video depends on several factors:
+        </p>
+        <ul className="list-disc pl-4 mt-2">
+          <li className="text-gray-700">
+            <b>Video size:</b> Larger videos naturally take longer to compress.
+          </li>
+          <li className="text-gray-700">
+            <b>Desired compression level:</b> Aiming for a smaller file size
+            typically requires more processing time.
+          </li>
+          <li className="text-gray-700">
+            <b>Hardware capabilities:</b> Faster processors and more RAM will
+            accelerate the compression process.
+          </li>
+        </ul>
+        <p className="text-gray-700 mt-2">
+          Therefore, it&apos;s difficult to provide a definitive answer without
+          knowing these specifics. However, compression time can range from{" "}
+          <b>seconds for short clips</b> on powerful computers to{" "}
+          <b>hours for large video files</b> on slower machines.
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: "Where are Compressed Videos Saved?",
+    description: `When you compress a video using a web-based tool, the compressed version won't be saved directly on your computer unless you download it manually.`,
+  },
+  {
+    title: "What types of videos can be compressed with this tool",
+    description: `When you compress a video using a web-based tool, the compressed version won't be saved directly on your computer unless you download it manually.`,
+  },
+  {
+    title: "What Video Formats Can be Compressed with this Tool",
+    description:
+      "This tool utilizes advanced video processing techniques to efficiently compress your videos while maintaining good quality. However, the specific details of these techniques are not publicly available due to various factors, including intellectual property protection and ensuring optimal performance",
+  },
+  {
+    title:
+      "Are There Compatibility Limitations with Different Operating Systems",
+    description:
+      "This tool is designed to be web-based, meaning it should function on most devices and operating systems as long as they have a modern web browser with internet access",
+  },
+  {
+    title: "How is my data protected during the compression process",
+    description:
+      "Your data is safeguarded throughout the compression process because the tool operates offline and is open-source. This means that the video remains within your system, and all processing occurs locally in your browser.",
+  },
+  {
+    title: "Are there any plans to add new features to the tool in the future",
+    description:
+      "Yes, we have plans to incorporate new features based on community needs. Additionally, we welcome pull requests, so if you have a specific feature in mind, you can contribute to the development. Alternatively, you can fork the repository and add features according to your requirements.",
+  },
+];
