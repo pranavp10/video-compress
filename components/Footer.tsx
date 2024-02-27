@@ -52,8 +52,12 @@ const Footer = () => (
     </div>
 
     <div className="justify-center font-medium text-gray-600 text-sm divide-x-2 flex pt-10">
-      <p className="pr-3">About</p>
-      <p className="pl-3">Video Compression</p>
+      <Link className="pr-3" href="/about">
+        About
+      </Link>
+      <Link href="/video" className="pl-3">
+        Video Compression
+      </Link>
     </div>
   </footer>
 );
