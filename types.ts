@@ -32,5 +32,6 @@ export type VideoInputSettings = {
     videoType: VideoFormats;
     customEndTime: number
     customStartTime: number
+    removeAudio: boolean
 }
 

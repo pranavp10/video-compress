@@ -16,7 +16,12 @@ export const VideoInputControl = ({
     <div className="text-sm">
       <div className="flex justify-between items-center border-b mb-2 pb-2">
         <p>Remove Audio</p>
-        <Switch />
+        <Switch
+          onCheckedChange={(value: boolean) =>
+            onVideoSettingsChange({ ...videoSettings, removeAudio: value })
+          }
+          checked={videoSettings.removeAudio}
+        />
       </div>
       <div className="flex justify-between items-center border-b mb-2 pb-2">
         <p>Quality</p>

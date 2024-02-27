@@ -32,6 +32,7 @@ const CompressVideo = () => {
     videoType: VideoFormats.MP4,
     customEndTime: 0,
     customStartTime: 0,
+    removeAudio: false,
   });
   const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
