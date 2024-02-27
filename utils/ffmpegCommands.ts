@@ -29,7 +29,7 @@ export const twitterCompressionCommand = (input: string, output: string) => ([
 ]);
 
 
-export const customVideoCompression = (input: string, output: string, videoSettings: VideoInputSettings) => {
+export const customVideoCompressionCommand = (input: string, output: string, videoSettings: VideoInputSettings) => {
     const ffmpegCommand = [
         '-i',
         input,
