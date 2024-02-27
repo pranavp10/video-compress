@@ -14,7 +14,9 @@ export function Dropdown({
   value,
   onValueChange,
   list,
+  width = "w-[104px]",
 }: {
+  width?: string;
   value: string;
   onValueChange: (value: string) => void;
   list: { value: string; label: string }[];
@@ -26,13 +28,13 @@ export function Dropdown({
       <PopoverTrigger asChild>
         <div
           aria-expanded={open}
-          className=" flex justify-between rounded-md px-2.5 py-1 relative text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-500 focus:ring-zinc-950 text-black items-center border cursor-pointer w-[104px] bg-white/50"
+          className={` flex justify-between rounded-md px-2.5 py-1 relative text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-500 focus:ring-zinc-950 text-black items-center border cursor-pointer ${width} bg-white/50`}
         >
           {value ? list.find((list) => list.value === value)?.label : "Format"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-[104px] p-0">
+      <PopoverContent className={`${width} p-0`}>
         <Command>
           <CommandGroup>
             {list.map((item) => (

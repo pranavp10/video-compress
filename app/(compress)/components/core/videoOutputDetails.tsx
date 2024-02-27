@@ -1,5 +1,5 @@
 import { BadgeCheck } from "lucide-react";
-import { FileActions } from "~/global";
+import { FileActions } from "~/types";
 import { calculateBlobSize, reduceSize } from "~/utils/bytesToSize";
 
 type VideoOutputDetailsProps = {

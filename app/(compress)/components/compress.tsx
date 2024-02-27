@@ -6,7 +6,6 @@ import { acceptedVideoFiles } from "~/utils/formats";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import { toast } from "sonner";
-import { FileActions, VideoInputSettings } from "~/global";
 import convertFile from "~/utils/convert";
 import { VideoDisplay } from "./core/videoDisplay";
 import { CustomDropZone } from "./core/customDropZone";
@@ -14,6 +13,13 @@ import { VideoInputDetails } from "./core/videoInputDetails";
 import { VideoInputControl } from "./core/videoInputControl";
 import { VideoOutputDetails } from "./core/videoOutputDetails";
 import { VideoCompressProgress } from "./core/videoCompressProgress";
+import { VideoTrim } from "./core/videoTrim";
+import {
+  FileActions,
+  QualityType,
+  VideoFormats,
+  VideoInputSettings,
+} from "~/types";
 
 const CompressVideo = () => {
   const [videoFile, setVideoFile] = useState<FileActions>();
@@ -22,8 +28,10 @@ const CompressVideo = () => {
     "notStarted" | "converted" | "converting"
   >("notStarted");
   const [videoSettings, setVideoSettings] = useState<VideoInputSettings>({
-    quality: "high",
-    videoType: "mp4",
+    quality: QualityType.Hight,
+    videoType: VideoFormats.MP4,
+    customEndTime: 0,
+    customStartTime: 0,
   });
   const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
@@ -33,7 +41,6 @@ const CompressVideo = () => {
       fileName: file.name,
       fileSize: file.size,
       from: file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2),
-      to: videoSettings.videoType,
       fileType: file.type,
       file,
       isError: false,
@@ -55,7 +62,8 @@ const CompressVideo = () => {
       });
       const { url, output, outputBlob } = await convertFile(
         ffmpegRef.current,
-        videoFile
+        videoFile,
+        videoSettings
       );
       setVideoFile({
         ...videoFile,
@@ -111,15 +119,19 @@ const CompressVideo = () => {
       <div className="flex border rounded-3xl col-span-3 h-full w-full bg-gray-50/35 p-4">
         <div className="flex flex-col gap-4 w-full">
           {videoFile && (
-            <VideoInputDetails
-              onClear={() => window.location.reload()}
-              videoFile={videoFile}
-            />
+            <>
+              <VideoInputDetails
+                onClear={() => window.location.reload()}
+                videoFile={videoFile}
+              />
+              <VideoTrim
+                onVideoSettingsChange={setVideoSettings}
+                videoSettings={videoSettings}
+              />
+            </>
           )}
           <VideoInputControl
-            onVideoSettingsChange={(value: string) =>
-              setVideoSettings({ ...videoSettings, quality: value })
-            }
+            onVideoSettingsChange={setVideoSettings}
             videoSettings={videoSettings}
           />
           <div className="bg-gray-100 border border-gray-200 rounded-2xl p-3 h-fit">
@@ -130,7 +142,7 @@ const CompressVideo = () => {
               />
             )}
 
-            {status === "notStarted" && (
+            {(status === "notStarted" || status === "converted") && (
               <button
                 onClick={compress}
                 type="button"

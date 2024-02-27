@@ -1,6 +1,7 @@
 import { FFmpeg, } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
-import { FileActions } from '~/global';
+import { FileActions, VideoInputSettings } from '~/types';
+import { customVideoCompressionCommand } from './ffmpegCommands';
 
 function getFileExtension(fileName: string) {
     const regex = /(?:\.([^.]+))?$/;
@@ -22,41 +23,13 @@ function removeFileExtension(fileName: string) {
 export default async function convertFile(
     ffmpeg: FFmpeg,
     actionFile: FileActions,
+    videoSettings: VideoInputSettings
 ): Promise<any> {
-    const { file, to, fileName, fileType } = actionFile;
+    const { file, fileName, fileType } = actionFile;
     const input = getFileExtension(fileName);
-    const output = removeFileExtension(fileName) + '.' + to;
+    const output = removeFileExtension(fileName) + '.' + videoSettings.videoType;
     ffmpeg.writeFile(input, await fetchFile(file));
-
-    const ffmpegCmd = [
-        '-i',
-        input,
-        '-c:v',
-        'libx264',
-        '-profile:v',
-        'high',
-        '-level:v',
-        '4.2',
-        '-pix_fmt',
-        'yuv420p',
-        '-c:a',
-        'aac',
-        '-b:a',
-        '192k',
-        '-movflags',
-        'faststart',
-        '-r',
-        '30',
-        '-maxrate',
-        '5000k',
-        '-bufsize',
-        '5000k',
-        '-tune',
-        'film',
-        output,
-    ];
-
-    await ffmpeg.exec(ffmpegCmd);
+    await ffmpeg.exec(customVideoCompressionCommand(input, output, videoSettings));
     const data = await ffmpeg.readFile(output)
     const blob = new Blob([data], { type: fileType.split('/')[0] });
     const url = URL.createObjectURL(blob);

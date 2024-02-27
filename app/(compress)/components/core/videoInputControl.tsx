@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch } from "~/components/ui/switch";
 import { Dropdown } from "~/components/ui/dropdown";
-import { VideoInputSettings } from "~/global";
+import { QualityType, VideoFormats, VideoInputSettings } from "~/types";
 
 type VideoControlDetailsProps = {
   videoSettings: VideoInputSettings;
-  onVideoSettingsChange: (value: string) => void;
+  onVideoSettingsChange: (value: VideoInputSettings) => void;
 };
 
 export const VideoInputControl = ({
@@ -21,7 +21,10 @@ export const VideoInputControl = ({
       <div className="flex justify-between items-center border-b mb-2 pb-2">
         <p>Quality</p>
         <Dropdown
-          onValueChange={onVideoSettingsChange}
+          onValueChange={(value) => {
+            const quality = value as QualityType;
+            onVideoSettingsChange({ ...videoSettings, quality });
+          }}
           value={videoSettings.quality}
           list={quality}
         />
@@ -29,8 +32,12 @@ export const VideoInputControl = ({
       <div className="flex justify-between items-center">
         <p>Formate</p>
         <Dropdown
+          width="w-[160px]"
           value={videoSettings.videoType}
-          onValueChange={onVideoSettingsChange}
+          onValueChange={(value) => {
+            const videoType = value as VideoFormats;
+            onVideoSettingsChange({ ...videoSettings, videoType });
+          }}
           list={formate}
         />
       </div>
@@ -38,14 +45,17 @@ export const VideoInputControl = ({
   </div>
 );
 
-const quality = [
-  { label: "Ultra", value: "ultra" },
-  { label: "High", value: "high" },
-  { label: "Medium", value: "medium" },
-  { label: "Low", value: "low" },
+const quality: { label: string; value: QualityType }[] = [
+  { label: "High", value: QualityType.Hight },
+  { label: "Medium", value: QualityType.Medium },
+  { label: "Low", value: QualityType.Low },
 ];
 
-const formate = [
-  { label: "mp4", value: "mp4" },
-  { label: "webm", value: "webm" },
+const formate: { label: string; value: VideoFormats }[] = [
+  { label: "MP4 (.mp4)", value: VideoFormats.MP4 },
+  { label: "MKV (.mkv)", value: VideoFormats.MKV },
+  { label: "AVI (.avi)", value: VideoFormats.AVI },
+  { label: "MOV (.mov)", value: VideoFormats.MOV },
+  { label: "FLV (.flv)", value: VideoFormats.FLV },
+  { label: "WEBM (.webm)", value: VideoFormats.WEBM },
 ];

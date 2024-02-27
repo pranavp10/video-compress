@@ -1,5 +1,5 @@
 import React from "react";
-import { FileActions } from "~/global";
+import { FileActions } from "~/types";
 import { bytesToSize } from "~/utils/bytesToSize";
 
 type VideoInputDetailsProps = {
