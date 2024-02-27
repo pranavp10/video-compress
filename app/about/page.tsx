@@ -4,7 +4,7 @@ const Page = () => {
       <h1 className="text-4xl font-bold  lg lg:font-semibold text-gray-900">
         The Story Behind Compress
       </h1>
-      <div className="sm:text-lg space-y-5 text-gray-500 font-medium">
+      <div className="text-lg sm:text-xl space-y-5 text-gray-500 font-medium">
         <p>
           It all started with a{" "}
           <span className="text-black">burning need.</span> As a developer, I
