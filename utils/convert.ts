@@ -48,21 +48,21 @@ export const formatTime = (seconds: number): string => {
     let formattedTime = "";
 
     if (hours > 0) {
-        formattedTime += hours + " Hr";
+        formattedTime += hours + "hr";
         if (minutes > 0 || remainingSeconds > 0) {
             formattedTime += " ";
         }
     }
 
     if (minutes > 0) {
-        formattedTime += `${minutes.toString().padStart(2, '0')} Min`;
+        formattedTime += `${minutes.toString().padStart(2, '0')} min`;
         if (remainingSeconds > 0) {
             formattedTime += " ";
         }
     }
 
     if (remainingSeconds > 0 || formattedTime === "") {
-        formattedTime += `${remainingSeconds} Sec`;
+        formattedTime += `${remainingSeconds} sec`;
     }
 
     return formattedTime;

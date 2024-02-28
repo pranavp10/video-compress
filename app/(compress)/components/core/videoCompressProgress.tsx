@@ -17,7 +17,7 @@ export const VideoCompressProgress = ({
           {progress ? <p>Compressing</p> : <p>Loading Video</p>}
           <Loader className="animate-spin w-4 h-4" />
         </div>
-        <p ref={timeConsumedRef}></p>
+        <p ref={timeConsumedRef} className="text-sm" />
       </div>
       <Progress value={progress} />
     </div>
