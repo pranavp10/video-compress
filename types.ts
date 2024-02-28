@@ -24,7 +24,6 @@ export enum QualityType {
     Hight = "15",
     Medium = "18",
     Low = "20"
-
 }
 
 export type VideoInputSettings = {

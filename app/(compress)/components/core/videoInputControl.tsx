@@ -69,7 +69,7 @@ export const VideoInputControl = ({
               <SelectContent>
                 <SelectGroup>
                   {quality.map(({ label, value }) => (
-                    <SelectItem value={value} key={label}>
+                    <SelectItem value={value} key={value}>
                       {label}
                     </SelectItem>
                   ))}
@@ -93,7 +93,7 @@ export const VideoInputControl = ({
               <SelectContent>
                 <SelectGroup>
                   {formate.map(({ label, value }) => (
-                    <SelectItem value={value} key={label}>
+                    <SelectItem value={value} key={value}>
                       {label}
                     </SelectItem>
                   ))}
@@ -115,9 +115,9 @@ const quality: { label: string; value: QualityType }[] = [
 
 const formate: { label: string; value: VideoFormats }[] = [
   { label: "MP4 (.mp4)", value: VideoFormats.MP4 },
-  { label: "MKV (.mkv)", value: VideoFormats.MKV },
-  { label: "AVI (.avi)", value: VideoFormats.AVI },
-  { label: "MOV (.mov)", value: VideoFormats.MOV },
-  { label: "FLV (.flv)", value: VideoFormats.FLV },
+  // { label: "MKV (.mkv)", value: VideoFormats.MKV },
+  // { label: "AVI (.avi)", value: VideoFormats.AVI },
+  // { label: "MOV (.mov)", value: VideoFormats.MOV },
+  // { label: "FLV (.flv)", value: VideoFormats.FLV },
   { label: "WEBM (.webm)", value: VideoFormats.WEBM },
 ];

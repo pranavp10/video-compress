@@ -61,13 +61,7 @@ export const VideoOutputDetails = ({
         </div>
         <div className="flex justify-between items-center">
           <p>Time taken</p>
-          <p>
-            {
-              <p className="text-sm">
-                {timeTaken ? formatTime(timeTaken / 1000) : "-"}
-              </p>
-            }
-          </p>
+          <p>{timeTaken ? formatTime(timeTaken / 1000) : "-"}</p>
         </div>
       </div>
     </div>
