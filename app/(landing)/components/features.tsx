@@ -2,6 +2,7 @@ import {
   Film,
   FlipVertical2,
   GitPullRequestArrow,
+  ScissorsLineDashed,
   Tangent,
   Users,
   WifiOff,
@@ -55,6 +56,14 @@ const features = [
   },
   {
     icon: (
+      <ScissorsLineDashed className="bg-gray-200/50 p-3 rounded-lg text-gray-900 w-12 h-12" />
+    ),
+    title: "Trim Video",
+    description:
+      "Eliminate undesired segments by choosing the video's starting and ending points, and the tool will automatically trim the video on your behalf.",
+  },
+  {
+    icon: (
       <GitPullRequestArrow className="bg-gray-200/50 p-3 rounded-lg text-gray-900 w-12 h-12" />
     ),
     title: "Unleash Your Creativity",
@@ -68,14 +77,6 @@ const features = [
     title: "Intuitive Interface",
     description:
       "Enjoy a user-friendly experience with a straightforward design, making video compression effortless for everyone, regardless of technical expertise.",
-  },
-  {
-    icon: (
-      <Users className="bg-gray-200/50 p-3 rounded-lg text-gray-900 w-12 h-12" />
-    ),
-    title: "Community-Driven Support",
-    description:
-      "Access a thriving community of users and developers for assistance, feedback, and ongoing improvements to the platform.",
   },
 ];
 
