@@ -1,6 +1,10 @@
 import { BadgeCheck } from "lucide-react";
 import { FileActions } from "~/types";
-import { calculateBlobSize, reduceSize } from "~/utils/bytesToSize";
+import {
+  bytesToSize,
+  calculateBlobSize,
+  reduceSize,
+} from "~/utils/bytesToSize";
 import { formatTime } from "~/utils/convert";
 
 type VideoOutputDetailsProps = {
@@ -44,12 +48,16 @@ export const VideoOutputDetails = ({
           </button>
         </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
-          <p>File size</p>
+          <p>Original file size</p>
+          <p>{bytesToSize(videoFile.fileSize)}</p>
+        </div>
+        <div className="flex justify-between items-center border-b mb-2 pb-2">
+          <p>New file size</p>
           <p>{outputFileSize}</p>
         </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
-          <p className="">Size reduced</p>
-          <p className="">{sizeReduced}</p>
+          <p className="font-semibold">Size reduced</p>
+          <p className="font-semibold">{sizeReduced}</p>
         </div>
         <div className="flex justify-between items-center">
           <p>Time taken</p>
