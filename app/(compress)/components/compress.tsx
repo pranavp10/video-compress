@@ -107,7 +107,7 @@ const CompressVideo = () => {
 
   return (
     <>
-      <div className="flex border rounded-3xl col-span-5 h-80 md:h-full w-full bg-gray-50/35">
+      <div className="flex border rounded-3xl col-span-5 md:h-full w-full bg-gray-50/35">
         {videoFile ? (
           <VideoDisplay videoUrl={URL.createObjectURL(videoFile.file)} />
         ) : (

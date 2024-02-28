@@ -54,7 +54,7 @@ export const CustomDropZone = ({
           {...getRootProps()}
           className={`${
             isHover ? "border-black bg-gray-100/80" : "border-default-gray"
-          } flex justify-center items-center flex-col cursor-pointer w-full ${
+          } flex justify-center items-center flex-col cursor-pointer w-full py-6 ${
             disabled ? "cursor-not-allowed" : ""
           }`}
         >
