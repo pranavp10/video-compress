@@ -89,6 +89,7 @@ const CompressVideo = () => {
       });
       setTime((oldTime) => ({ ...oldTime, startTime: undefined }));
       setStatus("converted");
+      setProgress(0);
     } catch (err) {
       toast.error("Error Compressing Video");
     }
