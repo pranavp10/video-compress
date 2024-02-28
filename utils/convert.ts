@@ -55,7 +55,7 @@ export const formatTime = (seconds: number): string => {
     }
 
     if (minutes > 0) {
-        formattedTime += `${minutes.toString().padStart(2, '0')} min`;
+        formattedTime += `${minutes.toString()} min`;
         if (remainingSeconds > 0) {
             formattedTime += " ";
         }

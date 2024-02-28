@@ -19,7 +19,6 @@ const VideoSlider = React.forwardRef<
     <SliderPrimitive.Track className="relative h-9 w-full grow overflow-hidden rounded-md">
       <SliderPrimitive.Range className="absolute h-full bg-gray-300/60" />
       <svg
-        height="auto"
         viewBox="0 0 20000 2000"
         xmlns="http://www.w3.org/2000/svg"
         className="z-10 "

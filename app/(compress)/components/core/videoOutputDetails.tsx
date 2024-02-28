@@ -1,10 +1,11 @@
 import { BadgeCheck } from "lucide-react";
 import { FileActions } from "~/types";
 import { calculateBlobSize, reduceSize } from "~/utils/bytesToSize";
+import { formatTime } from "~/utils/convert";
 
 type VideoOutputDetailsProps = {
   videoFile: FileActions;
-  timeTaken?: string;
+  timeTaken?: number;
 };
 
 export const VideoOutputDetails = ({
@@ -52,7 +53,13 @@ export const VideoOutputDetails = ({
         </div>
         <div className="flex justify-between items-center">
           <p>Time taken</p>
-          <p>{timeTaken}</p>
+          <p>
+            {
+              <p className="text-sm">
+                {timeTaken ? formatTime(timeTaken / 1000) : "-"}
+              </p>
+            }
+          </p>
         </div>
       </div>
     </div>

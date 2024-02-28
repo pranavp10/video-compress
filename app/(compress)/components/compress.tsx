@@ -24,6 +24,10 @@ import {
 const CompressVideo = () => {
   const [videoFile, setVideoFile] = useState<FileActions>();
   const [progress, setProgress] = useState<number>(0);
+  const [time, setTime] = useState<{
+    startTime?: Date;
+    elapsedSeconds: number;
+  }>({ elapsedSeconds: 0 });
   const [status, setStatus] = useState<
     "notStarted" | "converted" | "compressing"
   >("notStarted");
@@ -35,9 +39,22 @@ const CompressVideo = () => {
     removeAudio: false,
     twitterCompressionCommand: false,
   });
-  const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
   const disableDuringCompression = status === "compressing";
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (time?.startTime) {
+      timer = setInterval(() => {
+        const endTime = new Date();
+        const timeDifference = endTime.getTime() - time.startTime!.getTime();
+        setTime({ ...time, elapsedSeconds: timeDifference });
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [time]);
 
   const handleUpload = (file: File) => {
     setVideoFile({
@@ -53,12 +70,10 @@ const CompressVideo = () => {
   const compress = async () => {
     if (!videoFile) return;
     try {
+      setTime({ ...time, startTime: new Date() });
       setStatus("compressing");
       ffmpegRef.current.on("progress", ({ progress: completion, time }) => {
         const percentage = completion * 100;
-        const transcodeTime = time / 100000;
-        if (timeConsumedRef?.current && Math.floor(transcodeTime))
-          timeConsumedRef.current.textContent = formatTime(transcodeTime);
         setProgress(percentage);
       });
       const { url, output, outputBlob } = await convertFile(
@@ -72,6 +87,7 @@ const CompressVideo = () => {
         output,
         outputBlob,
       });
+      setTime((oldTime) => ({ ...oldTime, startTime: undefined }));
       setStatus("converted");
     } catch (err) {
       toast.error("Error Compressing Video");
@@ -141,7 +157,7 @@ const CompressVideo = () => {
             {status === "compressing" && (
               <VideoCompressProgress
                 progress={progress}
-                timeConsumedRef={timeConsumedRef}
+                seconds={time.elapsedSeconds}
               />
             )}
 
@@ -157,7 +173,7 @@ const CompressVideo = () => {
           </div>
           {status === "converted" && videoFile && (
             <VideoOutputDetails
-              timeTaken={timeConsumedRef.current?.textContent || "-"}
+              timeTaken={time.elapsedSeconds}
               videoFile={videoFile}
             />
           )}
