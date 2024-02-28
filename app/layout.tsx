@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Say goodbye to bulky video files! Compress and convert videos effortlessly with our free online tool. Enjoy high-quality results without sacrificing clarity, perfect for sharing, uploading, or editing. Convert like a pro, for free!",
     url: process.env.NEXT_PUBLIC_URL,
     type: "website",
-    images: "/og-image.png",
+    images: "/og-image.jpg",
     siteName: "Video Compression Hub",
   },
   twitter: {
