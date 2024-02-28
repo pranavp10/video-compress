@@ -23,29 +23,49 @@ export const VideoInputControl = ({
           checked={videoSettings.removeAudio}
         />
       </div>
-      <div className="flex justify-between items-center border-b mb-2 pb-2">
-        <p>Quality</p>
-        <Dropdown
-          onValueChange={(value) => {
-            const quality = value as QualityType;
-            onVideoSettingsChange({ ...videoSettings, quality });
-          }}
-          value={videoSettings.quality}
-          list={quality}
+      <div
+        className={`flex justify-between items-center ${
+          videoSettings.twitterCompressionCommand ? "" : "border-b mb-2 pb-2"
+        }`}
+      >
+        <p>Compression for Twitter</p>
+        <Switch
+          onCheckedChange={(value: boolean) =>
+            onVideoSettingsChange({
+              ...videoSettings,
+              twitterCompressionCommand: value,
+            })
+          }
+          checked={videoSettings.twitterCompressionCommand}
         />
       </div>
-      <div className="flex justify-between items-center">
-        <p>Formate</p>
-        <Dropdown
-          width="w-[160px]"
-          value={videoSettings.videoType}
-          onValueChange={(value) => {
-            const videoType = value as VideoFormats;
-            onVideoSettingsChange({ ...videoSettings, videoType });
-          }}
-          list={formate}
-        />
-      </div>
+      {!videoSettings.twitterCompressionCommand && (
+        <>
+          <div className="flex justify-between items-center border-b mb-2 pb-2">
+            <p>Quality</p>
+            <Dropdown
+              onValueChange={(value) => {
+                const quality = value as QualityType;
+                onVideoSettingsChange({ ...videoSettings, quality });
+              }}
+              value={videoSettings.quality}
+              list={quality}
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <p>Formate</p>
+            <Dropdown
+              width="w-[160px]"
+              value={videoSettings.videoType}
+              onValueChange={(value) => {
+                const videoType = value as VideoFormats;
+                onVideoSettingsChange({ ...videoSettings, videoType });
+              }}
+              list={formate}
+            />
+          </div>
+        </>
+      )}
     </div>
   </div>
 );

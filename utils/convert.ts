@@ -1,7 +1,7 @@
 import { FFmpeg, } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
 import { FileActions, VideoInputSettings } from '~/types';
-import { customVideoCompressionCommand } from './ffmpegCommands';
+import { customVideoCompressionCommand, twitterCompressionCommand } from './ffmpegCommands';
 
 function getFileExtension(fileName: string) {
     const regex = /(?:\.([^.]+))?$/;
@@ -29,7 +29,7 @@ export default async function convertFile(
     const input = getFileExtension(fileName);
     const output = removeFileExtension(fileName) + '.' + videoSettings.videoType;
     ffmpeg.writeFile(input, await fetchFile(file));
-    await ffmpeg.exec(customVideoCompressionCommand(input, output, videoSettings));
+    await ffmpeg.exec(videoSettings.twitterCompressionCommand ? twitterCompressionCommand(input, output) : customVideoCompressionCommand(input, output, videoSettings));
     const data = await ffmpeg.readFile(output)
     const blob = new Blob([data], { type: fileType.split('/')[0] });
     const url = URL.createObjectURL(blob);

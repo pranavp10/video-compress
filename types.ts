@@ -33,5 +33,6 @@ export type VideoInputSettings = {
     customEndTime: number
     customStartTime: number
     removeAudio: boolean
+    twitterCompressionCommand: boolean
 }
 

@@ -20,6 +20,7 @@ import {
   VideoFormats,
   VideoInputSettings,
 } from "~/types";
+import { VideoTwitterCompress } from "./core/videoTwitterCompress";
 
 const CompressVideo = () => {
   const [videoFile, setVideoFile] = useState<FileActions>();
@@ -33,6 +34,7 @@ const CompressVideo = () => {
     customEndTime: 0,
     customStartTime: 0,
     removeAudio: false,
+    twitterCompressionCommand: false,
   });
   const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
