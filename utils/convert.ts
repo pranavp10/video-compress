@@ -35,3 +35,37 @@ export default async function convertFile(
     const url = URL.createObjectURL(blob);
     return { url, output, outputBlob: blob };
 }
+
+
+export const formatTime = (seconds: number): string => {
+    // Ensure seconds is an integer
+    seconds = Math.round(seconds);
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    let formattedTime = "";
+
+    if (hours > 0) {
+        formattedTime += hours + " Hr";
+        if (minutes > 0 || remainingSeconds > 0) {
+            formattedTime += " ";
+        }
+    }
+
+    if (minutes > 0) {
+        formattedTime += `${minutes.toString().padStart(2, '0')} Min`;
+        if (remainingSeconds > 0) {
+            formattedTime += " ";
+        }
+    }
+
+    if (remainingSeconds > 0 || formattedTime === "") {
+        formattedTime += `${remainingSeconds} Sec`;
+    }
+
+    return formattedTime;
+}
+
+

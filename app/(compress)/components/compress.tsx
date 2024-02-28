@@ -6,7 +6,7 @@ import { acceptedVideoFiles } from "~/utils/formats";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import { toast } from "sonner";
-import convertFile from "~/utils/convert";
+import convertFile, { formatTime } from "~/utils/convert";
 import { VideoDisplay } from "./core/videoDisplay";
 import { CustomDropZone } from "./core/customDropZone";
 import { VideoInputDetails } from "./core/videoInputDetails";
@@ -20,13 +20,12 @@ import {
   VideoFormats,
   VideoInputSettings,
 } from "~/types";
-import { VideoTwitterCompress } from "./core/videoTwitterCompress";
 
 const CompressVideo = () => {
   const [videoFile, setVideoFile] = useState<FileActions>();
   const [progress, setProgress] = useState<number>(0);
   const [status, setStatus] = useState<
-    "notStarted" | "converted" | "converting"
+    "notStarted" | "converted" | "compressing"
   >("notStarted");
   const [videoSettings, setVideoSettings] = useState<VideoInputSettings>({
     quality: QualityType.Hight,
@@ -38,6 +37,7 @@ const CompressVideo = () => {
   });
   const timeConsumedRef = useRef<HTMLParagraphElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
+  const disableDuringCompression = status === "compressing";
 
   const handleUpload = (file: File) => {
     setVideoFile({
@@ -53,14 +53,12 @@ const CompressVideo = () => {
   const compress = async () => {
     if (!videoFile) return;
     try {
-      setStatus("converting");
+      setStatus("compressing");
       ffmpegRef.current.on("progress", ({ progress: completion, time }) => {
         const percentage = completion * 100;
         const transcodeTime = time / 100000;
         if (timeConsumedRef?.current && Math.floor(transcodeTime))
-          timeConsumedRef.current.textContent = `${Math.floor(
-            transcodeTime
-          )} sec`;
+          timeConsumedRef.current.textContent = formatTime(transcodeTime);
         setProgress(percentage);
       });
       const { url, output, outputBlob } = await convertFile(
@@ -128,17 +126,19 @@ const CompressVideo = () => {
                 videoFile={videoFile}
               />
               <VideoTrim
+                disable={disableDuringCompression}
                 onVideoSettingsChange={setVideoSettings}
                 videoSettings={videoSettings}
               />
             </>
           )}
           <VideoInputControl
+            disable={disableDuringCompression}
             onVideoSettingsChange={setVideoSettings}
             videoSettings={videoSettings}
           />
           <div className="bg-gray-100 border border-gray-200 rounded-2xl p-3 h-fit">
-            {status === "converting" && (
+            {status === "compressing" && (
               <VideoCompressProgress
                 progress={progress}
                 timeConsumedRef={timeConsumedRef}

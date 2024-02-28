@@ -7,10 +7,12 @@ import { calculateTimeInHoursMinutesSeconds } from "~/utils/timeConverter";
 type VideoTrimProps = {
   videoSettings: VideoInputSettings;
   onVideoSettingsChange: (value: VideoInputSettings) => void;
+  disable: boolean;
 };
 export const VideoTrim = ({
   onVideoSettingsChange,
   videoSettings,
+  disable,
 }: VideoTrimProps) => {
   const [videoEndTime, setVideoEndTime] = useState(0);
   const { customEndTime, customStartTime } = videoSettings;
@@ -45,6 +47,7 @@ export const VideoTrim = ({
         </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
           <VideoSlider
+            disabled={disable}
             value={[customStartTime, customEndTime]}
             max={videoEndTime}
             step={1}

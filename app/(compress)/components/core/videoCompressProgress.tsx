@@ -1,4 +1,4 @@
-import { XCircle } from "lucide-react";
+import { Loader, XCircle } from "lucide-react";
 import { Progress } from "~/components/ui/progress";
 
 type VideoCompressProgressProps = {
@@ -12,14 +12,14 @@ export const VideoCompressProgress = ({
 }: VideoCompressProgressProps) => (
   <div className="flex justify-between items-center gap-2 p-0.5">
     <div className="flex-1">
-      <div className="flex justify-between text-sm mb-1">
-        <p>Compressing</p>
+      <div className="flex justify-between text-sm mb-2">
+        <div className="flex gap-2 items-center">
+          {progress ? <p>Compressing</p> : <p>Loading Video</p>}
+          <Loader className="animate-spin w-4 h-4" />
+        </div>
         <p ref={timeConsumedRef}></p>
       </div>
       <Progress value={progress} />
-    </div>
-    <div>
-      <XCircle className="w-5 h-5 text-white" fill="#000" />
     </div>
   </div>
 );

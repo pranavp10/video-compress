@@ -1,22 +1,33 @@
 import React from "react";
 import { Switch } from "~/components/ui/switch";
-import { Dropdown } from "~/components/ui/dropdown";
 import { QualityType, VideoFormats, VideoInputSettings } from "~/types";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 type VideoControlDetailsProps = {
   videoSettings: VideoInputSettings;
   onVideoSettingsChange: (value: VideoInputSettings) => void;
+  disable: boolean;
 };
 
 export const VideoInputControl = ({
   videoSettings,
   onVideoSettingsChange,
+  disable,
 }: VideoControlDetailsProps) => (
   <div className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit">
     <div className="text-sm">
       <div className="flex justify-between items-center border-b mb-2 pb-2">
         <p>Remove Audio</p>
         <Switch
+          disabled={disable}
           onCheckedChange={(value: boolean) =>
             onVideoSettingsChange({ ...videoSettings, removeAudio: value })
           }
@@ -30,6 +41,7 @@ export const VideoInputControl = ({
       >
         <p>Compression for Twitter</p>
         <Switch
+          disabled={disable}
           onCheckedChange={(value: boolean) =>
             onVideoSettingsChange({
               ...videoSettings,
@@ -43,26 +55,51 @@ export const VideoInputControl = ({
         <>
           <div className="flex justify-between items-center border-b mb-2 pb-2">
             <p>Quality</p>
-            <Dropdown
-              onValueChange={(value) => {
+            <Select
+              disabled={disable}
+              value={videoSettings.quality}
+              onValueChange={(value: string) => {
                 const quality = value as QualityType;
                 onVideoSettingsChange({ ...videoSettings, quality });
               }}
-              value={videoSettings.quality}
-              list={quality}
-            />
+            >
+              <SelectTrigger className="w-[100px] text-sm">
+                <SelectValue placeholder="Select Quality" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {quality.map(({ label, value }) => (
+                    <SelectItem value={value} key={label}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex justify-between items-center">
             <p>Formate</p>
-            <Dropdown
-              width="w-[160px]"
+            <Select
+              disabled={disable}
               value={videoSettings.videoType}
-              onValueChange={(value) => {
+              onValueChange={(value: string) => {
                 const videoType = value as VideoFormats;
                 onVideoSettingsChange({ ...videoSettings, videoType });
               }}
-              list={formate}
-            />
+            >
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Select Quality" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {formate.map(({ label, value }) => (
+                    <SelectItem value={value} key={label}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </>
       )}
