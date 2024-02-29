@@ -20,6 +20,7 @@ import {
   VideoFormats,
   VideoInputSettings,
 } from "~/types";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CompressVideo = () => {
   const [videoFile, setVideoFile] = useState<FileActions>();
@@ -131,7 +132,15 @@ const CompressVideo = () => {
 
   return (
     <>
-      <div className="flex border rounded-3xl col-span-5 md:h-full w-full bg-gray-50/35">
+      <motion.div
+        layout
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        key="drag"
+        transition={{ type: "tween" }}
+        className="flex border rounded-3xl col-span-5 md:h-full w-full bg-gray-50/35"
+      >
         {videoFile ? (
           <VideoDisplay videoUrl={URL.createObjectURL(videoFile.file)} />
         ) : (
@@ -140,53 +149,71 @@ const CompressVideo = () => {
             handleUpload={handleUpload}
           />
         )}
-      </div>
-      <div className="flex border rounded-3xl col-span-3 h-full w-full bg-gray-50/35 p-4">
-        <div className="flex flex-col gap-4 w-full">
-          {videoFile && (
-            <>
-              <VideoInputDetails
-                onClear={() => window.location.reload()}
+      </motion.div>
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          layout
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          key="size"
+          transition={{ type: "tween" }}
+          className="flex border rounded-3xl col-span-3 h-full w-full bg-gray-50/35 p-4 relative"
+        >
+          <div className="flex flex-col gap-4 w-full">
+            {videoFile && (
+              <>
+                <VideoInputDetails
+                  onClear={() => window.location.reload()}
+                  videoFile={videoFile}
+                />
+                <VideoTrim
+                  disable={disableDuringCompression}
+                  onVideoSettingsChange={setVideoSettings}
+                  videoSettings={videoSettings}
+                />
+              </>
+            )}
+            <VideoInputControl
+              disable={disableDuringCompression}
+              onVideoSettingsChange={setVideoSettings}
+              videoSettings={videoSettings}
+            />
+            <motion.div
+              layout
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              key="button"
+              transition={{ type: "tween" }}
+              className="bg-gray-100 border border-gray-200 rounded-2xl p-3 h-fit"
+            >
+              {status === "compressing" && (
+                <VideoCompressProgress
+                  progress={progress}
+                  seconds={time.elapsedSeconds}
+                />
+              )}
+
+              {(status === "notStarted" || status === "converted") && (
+                <button
+                  onClick={compress}
+                  type="button"
+                  className="bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-zinc-700 via-zinc-950 to-zinc-950 rounded-lg text-white/90 px-3.5 py-2.5 relative text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-500 focus:ring-zinc-950 w-full"
+                >
+                  Compress
+                </button>
+              )}
+            </motion.div>
+            {status === "converted" && videoFile && (
+              <VideoOutputDetails
+                timeTaken={time.elapsedSeconds}
                 videoFile={videoFile}
               />
-              <VideoTrim
-                disable={disableDuringCompression}
-                onVideoSettingsChange={setVideoSettings}
-                videoSettings={videoSettings}
-              />
-            </>
-          )}
-          <VideoInputControl
-            disable={disableDuringCompression}
-            onVideoSettingsChange={setVideoSettings}
-            videoSettings={videoSettings}
-          />
-          <div className="bg-gray-100 border border-gray-200 rounded-2xl p-3 h-fit">
-            {status === "compressing" && (
-              <VideoCompressProgress
-                progress={progress}
-                seconds={time.elapsedSeconds}
-              />
-            )}
-
-            {(status === "notStarted" || status === "converted") && (
-              <button
-                onClick={compress}
-                type="button"
-                className="bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-zinc-700 via-zinc-950 to-zinc-950 rounded-lg text-white/90 px-3.5 py-2.5 relative text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-500 focus:ring-zinc-950 w-full"
-              >
-                Compress
-              </button>
             )}
           </div>
-          {status === "converted" && videoFile && (
-            <VideoOutputDetails
-              timeTaken={time.elapsedSeconds}
-              videoFile={videoFile}
-            />
-          )}
-        </div>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </>
   );
 };

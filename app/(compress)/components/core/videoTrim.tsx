@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { VideoSlider } from "~/components/ui/videoSlider";
 import { VideoInputSettings } from "~/types";
 import { calculateTimeInHoursMinutesSeconds } from "~/utils/timeConverter";
-
+import { motion } from "framer-motion";
 type VideoTrimProps = {
   videoSettings: VideoInputSettings;
   onVideoSettingsChange: (value: VideoInputSettings) => void;
@@ -40,7 +40,15 @@ export const VideoTrim = ({
   }, []);
 
   return (
-    <div className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit">
+    <motion.div
+      layout
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
+      key="trim"
+      transition={{ type: "tween" }}
+      className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit"
+    >
       <div className=" text-sm">
         <div className="flex justify-between items-center border-b mb-2 pb-2">
           <p className="">Trim Video</p>
@@ -73,6 +81,6 @@ export const VideoTrim = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

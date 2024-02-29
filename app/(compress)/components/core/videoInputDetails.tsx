@@ -1,6 +1,7 @@
 import React from "react";
 import { FileActions } from "~/types";
 import { bytesToSize } from "~/utils/bytesToSize";
+import { motion } from "framer-motion";
 
 type VideoInputDetailsProps = {
   videoFile: FileActions;
@@ -11,7 +12,15 @@ export const VideoInputDetails = ({
   videoFile,
   onClear,
 }: VideoInputDetailsProps) => (
-  <div className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit">
+  <motion.div
+    layout
+    initial={{ scale: 0.8, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    exit={{ scale: 0.8, opacity: 0 }}
+    transition={{ type: "tween" }}
+    key="details"
+    className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit"
+  >
     <div className=" text-sm">
       <div className="flex justify-between items-center border-b mb-2 pb-2">
         <p className="">Fill Input</p>
@@ -29,5 +38,5 @@ export const VideoInputDetails = ({
         <p>{bytesToSize(videoFile.fileSize)}</p>
       </div>
     </div>
-  </div>
+  </motion.div>
 );

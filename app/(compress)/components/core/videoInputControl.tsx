@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { motion } from "framer-motion";
 
 type VideoControlDetailsProps = {
   videoSettings: VideoInputSettings;
@@ -22,7 +23,15 @@ export const VideoInputControl = ({
   onVideoSettingsChange,
   disable,
 }: VideoControlDetailsProps) => (
-  <div className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit">
+  <motion.div
+    layout
+    initial={{ scale: 0.8, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    exit={{ scale: 0.8, opacity: 0 }}
+    transition={{ type: "tween" }}
+    key="input"
+    className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit"
+  >
     <div className="text-sm">
       <div className="flex justify-between items-center border-b mb-2 pb-2">
         <p>Remove Audio</p>
@@ -104,7 +113,7 @@ export const VideoInputControl = ({
         </>
       )}
     </div>
-  </div>
+  </motion.div>
 );
 
 const quality: { label: string; value: QualityType }[] = [

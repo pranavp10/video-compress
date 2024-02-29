@@ -6,7 +6,7 @@ import {
   reduceSize,
 } from "~/utils/bytesToSize";
 import { formatTime } from "~/utils/convert";
-
+import { motion } from "framer-motion";
 type VideoOutputDetailsProps = {
   videoFile: FileActions;
   timeTaken?: number;
@@ -32,7 +32,15 @@ export const VideoOutputDetails = ({
   };
 
   return (
-    <div className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit">
+    <motion.div
+      layout
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
+      key="output"
+      transition={{ type: "tween" }}
+      className="bg-gray-100 border border-gray-200 rounded-2xl px-4 py-3 h-fit"
+    >
       <div className="text-sm">
         <div className="flex justify-between items-center border-b mb-2 pb-2">
           <div className="flex items-center gap-1">
@@ -64,6 +72,6 @@ export const VideoOutputDetails = ({
           <p>{timeTaken ? formatTime(timeTaken / 1000) : "-"}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
