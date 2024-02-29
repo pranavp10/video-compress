@@ -20,7 +20,7 @@ const Faq = () => (
       <Accordion type="single" collapsible className="w-full">
         {FAQ.map(({ description, title }) => (
           <AccordionItem value={title} key={title}>
-            <AccordionTrigger className="md:py-6 text-lg text-black/70">
+            <AccordionTrigger className="md:py-6 md:text-lg text-black/70 text-left">
               {title}
             </AccordionTrigger>
             <AccordionContent className="text-gray-500 pb-6 text-black/70">
