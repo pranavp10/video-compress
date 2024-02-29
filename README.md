@@ -8,9 +8,9 @@ Compress Videos for Free. Forever. Say goodbye to bulky files! Crush video sizes
 
 ## ⛰️ Preview
 
-<small>If preview is not loaded, please visit here [preview gif](./public/demo.mp4).</small>
+<small>If preview is not loaded, please visit here [preview gif](./public/demo.gif).</small>
 
-![Video Compression Preview](./public/demo.mp4)
+![Video Compression Preview](./public/demo.gif)
 
 ## 🤝 Contributing
 
