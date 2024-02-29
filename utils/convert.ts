@@ -26,10 +26,11 @@ export default async function convertFile(
     videoSettings: VideoInputSettings
 ): Promise<any> {
     const { file, fileName, fileType } = actionFile;
-    const input = getFileExtension(fileName);
     const output = removeFileExtension(fileName) + '.' + videoSettings.videoType;
-    ffmpeg.writeFile(input, await fetchFile(file));
-    await ffmpeg.exec(videoSettings.twitterCompressionCommand ? twitterCompressionCommand(input, output) : customVideoCompressionCommand(input, output, videoSettings));
+    ffmpeg.writeFile(fileName, await fetchFile(file));
+    const command = videoSettings.twitterCompressionCommand ? twitterCompressionCommand(fileName, output) : customVideoCompressionCommand(fileName, output, videoSettings)
+    console.log(command)
+    await ffmpeg.exec(command);
     const data = await ffmpeg.readFile(output)
     const blob = new Blob([data], { type: fileType.split('/')[0] });
     const url = URL.createObjectURL(blob);

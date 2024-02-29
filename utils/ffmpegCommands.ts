@@ -1,4 +1,4 @@
-import { VideoInputSettings } from "~/types";
+import { VideoFormats, VideoInputSettings } from "~/types";
 
 export const twitterCompressionCommand = (input: string, output: string) => ([
     '-i',
@@ -29,7 +29,52 @@ export const twitterCompressionCommand = (input: string, output: string) => ([
 ]);
 
 
-export const customVideoCompressionCommand = (input: string, output: string, videoSettings: VideoInputSettings) => {
+export const customVideoCompressionCommand = (input: string, output: string, videoSettings: VideoInputSettings): string[] => {
+    switch (videoSettings.videoType) {
+        case VideoFormats.MP4:
+            return getMp4Command(input, output, videoSettings)
+        case VideoFormats.WEBM:
+            return getWebMCommand(input, output, videoSettings)
+        case VideoFormats.AVI:
+            return getAVICommand(input, output, videoSettings)
+        case VideoFormats.FLV:
+            return getFLVCommand(input, output, videoSettings)
+        case VideoFormats.MKV:
+            return getMKVCommand(input, output, videoSettings)
+        case VideoFormats.MOV:
+            return getMOVCommand(input, output, videoSettings)
+        default:
+            return ['-i', input, output]
+    }
+}
+
+
+const getWebMCommand = (input: string, output: string, videoSettings: VideoInputSettings): string[] => {
+    const audioOptions = videoSettings.removeAudio ? [] : ['-c:a', 'libvorbis'];
+    return ['-i', input, '-c:v', 'libvpx', '-crf', videoSettings.quality, '-b:v', '1M', ...audioOptions, '-vf', `trim=start=${videoSettings.customStartTime}:end=${videoSettings.customEndTime}`, output];
+};
+
+const getMKVCommand = (input: string, output: string, videoSettings: VideoInputSettings): string[] => {
+    const audioOptions = videoSettings.removeAudio ? [] : ['-c:a', 'aac'];
+    return ['-i', input, '-c:v', 'libx264', '-crf', videoSettings.quality, ...audioOptions, '-vf', `trim=start=${videoSettings.customStartTime}:end=${videoSettings.customEndTime}`, output];
+};
+
+const getAVICommand = (input: string, output: string, videoSettings: VideoInputSettings): string[] => {
+    const audioOptions = videoSettings.removeAudio ? [] : ['-c:a', 'mp3'];
+    return ['-i', input, '-c:v', 'libx264', '-crf', videoSettings.quality, ...audioOptions, '-vf', `trim=start=${videoSettings.customStartTime}:end=${videoSettings.customEndTime}`, output];
+};
+
+const getFLVCommand = (input: string, output: string, videoSettings: VideoInputSettings): string[] => {
+    const audioOptions = videoSettings.removeAudio ? [] : ['-c:a', 'aac'];
+    return ['-i', input, '-c:v', 'libx264', '-crf', videoSettings.quality, ...audioOptions, '-vf', `trim=start=${videoSettings.customStartTime}:end=${videoSettings.customEndTime}`, output];
+};
+
+const getMOVCommand = (input: string, output: string, videoSettings: VideoInputSettings): string[] => {
+    const audioOptions = videoSettings.removeAudio ? [] : ['-c:a', 'aac'];
+    return ['-i', input, '-c:v', 'libx264', '-crf', videoSettings.quality, ...audioOptions, '-vf', `trim=start=${videoSettings.customStartTime}:end=${videoSettings.customEndTime}`, output];
+};
+
+const getMp4Command = (input: string, output: string, videoSettings: VideoInputSettings) => {
     const ffmpegCommand = [
         '-i',
         input,
@@ -77,4 +122,4 @@ export const customVideoCompressionCommand = (input: string, output: string, vid
     }
     ffmpegCommand.push(output);
     return ffmpegCommand;
-};
+}

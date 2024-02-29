@@ -6,7 +6,7 @@ import { acceptedVideoFiles } from "~/utils/formats";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import { toast } from "sonner";
-import convertFile, { formatTime } from "~/utils/convert";
+import convertFile from "~/utils/convert";
 import { VideoDisplay } from "./core/videoDisplay";
 import { CustomDropZone } from "./core/customDropZone";
 import { VideoInputDetails } from "./core/videoInputDetails";
@@ -76,6 +76,9 @@ const CompressVideo = () => {
         const percentage = completion * 100;
         setProgress(percentage);
       });
+      ffmpegRef.current.on("log", ({ message }) => {
+        console.log(message);
+      });
       const { url, output, outputBlob } = await convertFile(
         ffmpegRef.current,
         videoFile,
@@ -91,6 +94,10 @@ const CompressVideo = () => {
       setStatus("converted");
       setProgress(0);
     } catch (err) {
+      console.log(err);
+      setStatus("notStarted");
+      setProgress(0);
+      setTime({ elapsedSeconds: 0, startTime: undefined });
       toast.error("Error Compressing Video");
     }
   };
