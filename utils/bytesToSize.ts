@@ -20,8 +20,13 @@ export const calculateBlobSize = (blob?: Blob): string => {
     return `${size.toFixed(2)} ${units[unitIndex]}`;
 };
 
-export const reduceSize = (bytes: number, blob?: Blob): string => {
+export const reduceSize = (bytes: number, blob?: Blob): { sizeReduced: string, percentage: string } => {
     const blobSizeInBytes = blob?.size || 0;
     const adjustedSizeInBytes = Math.max(0, bytes - blobSizeInBytes);
-    return bytesToSize(adjustedSizeInBytes)
+    const percentageReduction = (blobSizeInBytes > 0 ? (adjustedSizeInBytes / bytes) * 100 : 100).toFixed(2);
+
+    return {
+        sizeReduced: bytesToSize(adjustedSizeInBytes),
+        percentage: percentageReduction
+    };
 }

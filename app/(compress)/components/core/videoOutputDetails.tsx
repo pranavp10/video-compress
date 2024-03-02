@@ -17,7 +17,10 @@ export const VideoOutputDetails = ({
   timeTaken,
 }: VideoOutputDetailsProps) => {
   const outputFileSize = calculateBlobSize(videoFile.outputBlob);
-  const sizeReduced = reduceSize(videoFile.fileSize, videoFile.outputBlob);
+  const { sizeReduced, percentage } = reduceSize(
+    videoFile.fileSize,
+    videoFile.outputBlob
+  );
 
   const download = () => {
     if (!videoFile?.url) return;
@@ -55,17 +58,22 @@ export const VideoOutputDetails = ({
             Download
           </button>
         </div>
+
+        <div className="flex justify-between items-center border-b mb-2 pb-2">
+          <p className="font-semibold">New file size</p>
+          <p className="font-semibold">{outputFileSize}</p>
+        </div>
+        <div className="flex justify-between items-center border-b mb-2 pb-2">
+          <p className="font-semibold">Percentage Reduced</p>
+          <p className="font-semibold">{percentage}%</p>
+        </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
           <p>Original file size</p>
           <p>{bytesToSize(videoFile.fileSize)}</p>
         </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
-          <p>New file size</p>
-          <p>{outputFileSize}</p>
-        </div>
-        <div className="flex justify-between items-center border-b mb-2 pb-2">
-          <p className="font-semibold">Size reduced</p>
-          <p className="font-semibold">{sizeReduced}</p>
+          <p>Size reduced</p>
+          <p>{sizeReduced}</p>
         </div>
         <div className="flex justify-between items-center">
           <p>Time taken</p>
