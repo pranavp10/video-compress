@@ -64,7 +64,7 @@ export const VideoOutputDetails = ({
           <p className="font-semibold">{outputFileSize}</p>
         </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
-          <p className="font-semibold">Percentage Reduced</p>
+          <p className="font-semibold">Size Reduced %</p>
           <p className="font-semibold">{percentage}%</p>
         </div>
         <div className="flex justify-between items-center border-b mb-2 pb-2">
