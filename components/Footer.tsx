@@ -50,7 +50,6 @@ const Footer = () => (
         No © 2024 Compress Videos for Free. Forever
       </p>
     </div>
-
     <div className="justify-center font-medium text-gray-600 text-sm divide-x-2 flex pt-10">
       <Link className="pr-3" href="/about">
         About

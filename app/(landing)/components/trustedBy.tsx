@@ -5,7 +5,7 @@ const TrustedBy = () => {
   return (
     <div>
       <p className="text-center font-semibold text-2xl md:text-3xl">
-        Trusted by
+        Trusted by people working at
       </p>
       <Marquee autoFill className="h-28 overflow-hidden">
         <div className="px-4">
