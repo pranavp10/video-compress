@@ -1,6 +1,6 @@
 # Video Compression using `FFmpeg`
 
-![Video Compression](./public/banner.png)
+![Video Compression](./public/banner.jpeg)
 
 ## Overview
 
