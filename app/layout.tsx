@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     },
   },
   title:
-    "Compress & Convert Videos and Image Like a Pro - Free, High-Quality offline Tool",
+    "Compress & Convert Videos Like a Pro - Free, High-Quality offline Tool",
   description:
     "Say goodbye to bulky video files! Compress and convert videos effortlessly with our free offline tool. Enjoy high-quality results without sacrificing clarity, perfect for sharing, uploading, or editing. Convert like a pro, for free!",
   keywords: [
