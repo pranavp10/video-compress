@@ -44,3 +44,8 @@ The Video Compression is deployed using [Coolify](https://coolify.io) self hoste
 ### License
 
 You are free to use this code as inspiration. Please do not copy it directly. Crediting the author is appreciated. Please remove all personal information (images, etc.)
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=pranavp10/video-compress&type=Date)](https://star-history.com/#pranavp10/video-compress&Date)
+
