@@ -47,15 +47,15 @@ export const Navbar = () => {
           <p className="font-semibold sm:text-xl">Compress</p>
         </Link>
         <div className="sm:flex gap-4 items-center justify-center hidden">
-          <a href="#features" className="text-sm opacity-50">
+          <Link href="/#features" className="text-sm opacity-50">
             Features
-          </a>
-          <a href="#pricing" className="text-sm opacity-50">
+          </Link>
+          <Link href="/#pricing" className="text-sm opacity-50">
             Pricing
-          </a>
-          <a href="#faq" className="text-sm opacity-50">
+          </Link>
+          <Link href="/#faq" className="text-sm opacity-50">
             Faq
-          </a>
+          </Link>
           <Link href="/analytics" className="text-sm opacity-50">
             Analytics
           </Link>
