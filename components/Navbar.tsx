@@ -56,13 +56,9 @@ export const Navbar = () => {
           <a href="#faq" className="text-sm opacity-50">
             Faq
           </a>
-          <a
-            href="https://plausible.pranavp.xyz/videocompress.prolab.sh"
-            target="_blank"
-            className="text-sm opacity-50"
-          >
+          <Link href="/analytics" className="text-sm opacity-50">
             Analytics
-          </a>
+          </Link>
         </div>
         <div className="flex justify-end items-center">
           <Link

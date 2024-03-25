@@ -57,13 +57,9 @@ const Footer = () => (
       <Link href="/video" className="px-3">
         Video Compression
       </Link>
-      <a
-        target="_blank"
-        href="https://plausible.pranavp.xyz/videocompress.prolab.sh"
-        className="pl-3"
-      >
+      <Link href="/analytics" className="pl-3">
         Analytics
-      </a>
+      </Link>
     </div>
   </footer>
 );
