@@ -37,6 +37,7 @@ export const VideoTrim = ({
         video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
