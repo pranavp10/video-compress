@@ -1,15 +1,14 @@
+import Image from "next/image";
+
 const VideoDemo = () => (
   <div className="px-6 relative">
-    <video
-      autoPlay
-      loop
-      playsInline
-      preload="auto"
+    <Image
+      width={400}
+      height={700}
+      src="/demo.gif"
       className="h-full rounded-3xl w-full object-cover border-8 overflow-clip"
-    >
-      <source src="/demo.mp4" type="video/mp4" />
-      <source src="/demo.webm" type="video/webm" />
-    </video>
+      alt="demo of video quality"
+    />
   </div>
 );
 

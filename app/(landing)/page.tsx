@@ -11,8 +11,10 @@ import Testimonial from "./components/testimonial";
 const Page = () => (
   <>
     <div className="max-w-5xl mx-auto pt-32 space-y-16 sm:space-y-32">
-      <Hero />
-      <VideoDemo />
+      <div>
+        <Hero />
+        <VideoDemo />
+      </div>
       <div className="space-y-6 sm:space-y-16">
         <TrustedBy />
         <Features />

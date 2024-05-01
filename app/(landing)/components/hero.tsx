@@ -1,4 +1,12 @@
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import {
+  Clapperboard,
+  Film,
+  FlipVertical2,
+  ScissorsLineDashed,
+  Users,
+  WifiOff,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -40,7 +48,52 @@ const Hero = () => (
         <GitHubLogoIcon /> Github
       </a>
     </div>
+    <div className="my-10 p-10 rounded-3xl mx-10">
+      <div
+        className="grid md:grid-cols-2  lg:grid-cols-3 gap-x-4 gap-y-20 mx-auto px-6 lg:px-0"
+        id="features"
+      >
+        {features.map(({ count, description, icon, title }) => (
+          <div
+            key={description}
+            className="text-center flex justify-center items-center flex-col gap-8"
+          >
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-gray-500">
+                {icon}
+                {title}
+              </div>
+              <p className="font-bold text-4xl ">{count}</p>
+              <p className="text-gray-500 text-balance max-w-sm">
+                {description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 );
 
 export default Hero;
+
+const features = [
+  {
+    icon: <Users className="w-4 h-4" />,
+    count: "2,456",
+    description: "Users",
+    title: "Trusted By",
+  },
+  {
+    icon: <Clapperboard className="w-4 h-4" />,
+    count: "53,532",
+    description: "Files",
+    title: "Compressed",
+  },
+  {
+    icon: <FlipVertical2 className="w-4 h-4" />,
+    count: "6,895",
+    description: "GB",
+    title: "Reduction",
+  },
+];
