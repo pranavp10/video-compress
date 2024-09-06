@@ -57,9 +57,6 @@ const Footer = () => (
       <Link href="/video" className="px-3">
         Video Compression
       </Link>
-      <Link href="/analytics" className="pl-3">
-        Analytics
-      </Link>
     </div>
   </footer>
 );

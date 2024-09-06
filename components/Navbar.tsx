@@ -56,9 +56,6 @@ export const Navbar = () => {
           <Link href="/#faq" className="text-sm opacity-50">
             Faq
           </Link>
-          <Link href="/analytics" className="text-sm opacity-50">
-            Analytics
-          </Link>
         </div>
         <div className="flex justify-end items-center">
           <Link

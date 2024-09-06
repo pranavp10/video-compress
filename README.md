@@ -20,7 +20,6 @@ Compress Videos for Free. Forever. Say goodbye to bulky files! Crush video sizes
 - **Framework:** [Next.js](https://nextjs.org)
 - **Deployment:** [Coolify](https://coolify.io)
 - **Styling:** [Tailwind CSS](http://tailwindcss.com)
-- **Analytics:** [Plausible](https://plausible.pranavp.xyz/videocompress.prolab.sh)
 
 ### Running Locally
 
@@ -48,4 +47,3 @@ You are free to use this code as inspiration. Please do not copy it directly. Cr
 ### Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=pranavp10/video-compress&type=Date)](https://star-history.com/#pranavp10/video-compress&Date)
-
