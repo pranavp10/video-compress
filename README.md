@@ -18,7 +18,6 @@ Compress Videos for Free. Forever. Say goodbye to bulky files! Crush video sizes
 
 - **Multimedia Framework:** [FFmpeg](https://ffmpeg.org/)
 - **Framework:** [Next.js](https://nextjs.org)
-- **Deployment:** [Coolify](https://coolify.io)
 - **Styling:** [Tailwind CSS](http://tailwindcss.com)
 
 ### Running Locally
@@ -33,10 +32,6 @@ bun run dev
 ```
 
 Create `.env.local` file similar to `.env.example`.
-
-### Deployment
-
-The Video Compression is deployed using [Coolify](https://coolify.io) self hosted. Automatic deployments are triggered when changes are pushed to the main branch.
 
 [Live Video Compression Link](https://videocompress.prolab.sh/)
 
