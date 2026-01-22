@@ -27,11 +27,13 @@ Ensure that you have Bun installed.
 ```bash
 git clone https://github.com/pranavp10/video-compress.git
 cd video-compress
+
+# ⚠️ Before running, make sure to create a .env.local file (see .env.example)
 bun install
 bun run dev
 ```
 
-Create `.env.local` file similar to `.env.example`.
+> Create `.env.local` file similar to `.env.example`.
 
 [Live Video Compression Link](https://videocompress.prolab.sh/)
 

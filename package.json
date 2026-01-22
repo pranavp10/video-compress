@@ -1,6 +1,6 @@
 {
   "name": "video-compression",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Compress Videos for Free. Forever. Say goodbye to bulky files! Crush video sizes by 90% with no quality loss, even offline. And the best part? It's free!",
   "author": {
@@ -25,11 +25,92 @@
     "Shrink Video File Size"
   ],
   "license": "MIT",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "electron": "electron .",
+    "electron:dev": "next build && electron .",
+    "electron:build": "next build && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "sh.prolab.videocompress",
+    "productName": "Video Compress",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "out/**/*",
+      "public/**/*",
+      "!public/demo.webm",
+      "!public/banner.jpeg",
+      "!public/banner.png", 
+      "package.json",
+      "!node_modules/**/*",
+      "!*.log",
+      "!.next/**/*",
+      "!.git/**/*",
+      "!dist/**/*",
+      "!docs/**/*",
+      "!*.md"
+    ],
+    "asar": {
+      "smartUnpack": false
+    },
+    "compression": "maximum",
+    "asarUnpack": [
+      "out/_next/static/**/*",
+      "out/download/**/*"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["arm64", "x64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["arm64", "x64"]
+        }
+      ],
+      "icon": "public/launcher-icon.icns",
+      "category": "public.app-category.video"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/launcher-icon.ico"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/launcher-icon.png",
+      "category": "AudioVideo"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",
@@ -42,6 +123,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "caniuse-lite": "^1.0.30001720",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
@@ -63,6 +145,8 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "electron": "^36.3.2",
+    "electron-builder": "^26.0.12",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",

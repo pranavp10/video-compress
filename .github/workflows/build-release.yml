@@ -1,0 +1,160 @@
+name: Build and Release Electron Apps
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_URL=${{ secrets.NEXT_PUBLIC_URL }}" > .env
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest'
+      - name: Install dependencies
+        run: bun install
+      - name: Build Next.js app
+        run: bun run build
+      - name: Build Electron app (Linux)
+        run: npx electron-builder --linux --x64 --publish=never
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-app-linux-x64
+          path: |
+            dist/*.AppImage
+            dist/*.deb
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_URL=${{ secrets.NEXT_PUBLIC_URL }}" > .env
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest'
+      - name: Install dependencies
+        run: bun install
+      - name: Build Next.js app
+        run: bun run build
+      - name: Build Electron app (Windows)
+        run: npx electron-builder --win --x64 --publish=never
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-app-win32-x64
+          path: |
+            dist/*.exe
+            dist/*.zip
+
+  build-macos-x64:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_URL=${{ secrets.NEXT_PUBLIC_URL }}" > .env
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest'
+      - name: Install dependencies
+        run: bun install
+      - name: Build Next.js app
+        run: bun run build
+      - name: Build Electron app (macOS x64)
+        run: npx electron-builder --mac --x64 --publish=never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+      - name: Upload macOS x64 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-app-darwin-x64
+          path: |
+            dist/*.dmg
+            dist/*.zip
+
+  build-macos-arm64:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_URL=${{ secrets.NEXT_PUBLIC_URL }}" > .env
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest'
+      - name: Install dependencies
+        run: bun install
+      - name: Build Next.js app
+        run: bun run build
+      - name: Build Electron app (macOS arm64)
+        run: npx electron-builder --mac --arm64 --publish=never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+      - name: Upload macOS arm64 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-app-darwin-arm64
+          path: |
+            dist/*.dmg
+            dist/*.zip
+
+  release:
+    needs: [build-linux, build-windows, build-macos-x64, build-macos-arm64]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Display structure of downloaded files
+        run: ls -la artifacts/
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/**/*.dmg
+            artifacts/**/*.zip
+            artifacts/**/*.exe
+            artifacts/**/*.AppImage
+            artifacts/**/*.deb
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -77,8 +77,11 @@ const CompressVideo = () => {
         const percentage = completion * 100;
         setProgress(percentage);
       });
-      ffmpegRef.current.on("log", ({ message }) => {
-        console.log(message);
+      // Only log errors, not verbose processing info
+      ffmpegRef.current.on("log", ({ type, message }) => {
+        if (type === "error") {
+          console.error("FFmpeg error:", message);
+        }
       });
       const { url, output, outputBlob } = await convertFile(
         ffmpegRef.current,
@@ -94,27 +97,68 @@ const CompressVideo = () => {
       setTime((oldTime) => ({ ...oldTime, startTime: undefined }));
       setStatus("converted");
       setProgress(0);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error("❌ Error during compression:", error);
       setStatus("notStarted");
       setProgress(0);
       setTime({ elapsedSeconds: 0, startTime: undefined });
-      toast.error("Error Compressing Video");
+      toast.error("An error occurred during compression.");
     }
   };
 
   const load = async () => {
     const ffmpeg = ffmpegRef.current;
-    await ffmpeg.load({
-      coreURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.js`,
-        "text/javascript"
-      ),
-      wasmURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.wasm`,
-        "application/wasm"
-      ),
-    });
+    
+    // Detect if running in Electron using the exposed API
+    const isElectron = typeof window !== 'undefined' && 
+                      !!(window as any).electronAPI?.isElectron;
+    
+    if (isElectron) {
+      // For Electron, use IPC to load FFmpeg assets
+      try {
+        // Get the FFmpeg core JS and WASM files from the main process
+        const [coreJS, wasmBuffer] = await Promise.all([
+          (window as any).electronAPI.getFFmpegCoreJS(),
+          (window as any).electronAPI.getFFmpegWASM(),
+        ]);
+        
+        // Create blob URLs for the assets
+        const coreJSBlob = new Blob([coreJS], { type: 'text/javascript' });
+        const wasmBlob = new Blob([wasmBuffer], { type: 'application/wasm' });
+        
+        const coreURL = URL.createObjectURL(coreJSBlob);
+        const wasmURL = URL.createObjectURL(wasmBlob);
+        
+        // Load FFmpeg without worker to avoid CORS issues
+        await ffmpeg.load({
+          coreURL,
+          wasmURL,
+        });
+        
+        // Clean up blob URLs after loading
+        URL.revokeObjectURL(coreURL);
+        URL.revokeObjectURL(wasmURL);
+        
+      } catch (error) {
+        console.error('Failed to load FFmpeg in Electron:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`Failed to load FFmpeg in Electron: ${errorMessage}`);
+      }
+    } else {
+      // In web browser, use the standard approach
+      const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+      
+      await ffmpeg.load({
+        coreURL: await toBlobURL(
+          `${baseUrl}/download/ffmpeg-core.js`,
+          "text/javascript"
+        ),
+        wasmURL: await toBlobURL(
+          `${baseUrl}/download/ffmpeg-core.wasm`,
+          "application/wasm"
+        ),
+      });
+    }
   };
 
   const loadWithToast = () => {
@@ -127,8 +171,10 @@ const CompressVideo = () => {
     });
   };
 
+  useEffect(() => {
+    loadWithToast();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => loadWithToast(), []);
+  }, []);
 
   return (
     <>
